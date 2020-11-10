@@ -1,83 +1,99 @@
+import { Field, ID, ObjectType } from 'type-graphql';
 import {
   Column,
   Entity,
   Index,
   OneToMany,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { Addresses } from "./Addresses";
+} from 'typeorm';
+import { Addresses } from './Addresses';
 
-@Index("index_customers_on_address_id", ["addressId"], {})
-@Index("index_customers_on_user_id", ["userId"], {})
-@Entity("customers", { schema: "app_development" })
+@Index('index_customers_on_address_id', ['addressId'], {})
+@Index('index_customers_on_user_id', ['userId'], {})
+@ObjectType()
+@Entity('customers', { schema: 'app_development' })
 export class Customers {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
+  @Field(() => ID)
+  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
-  @Column("bigint", { name: "user_id", nullable: true })
-  userId: string | null;
+  @Field({ nullable: true })
+  @Column('bigint', { name: 'user_id', nullable: true })
+  userId: string;
 
-  @Column("varchar", { name: "company_name", nullable: true, length: 255 })
-  companyName: string | null;
+  @Field({ nullable: true })
+  @Column('varchar', { name: 'company_name', nullable: true, length: 255 })
+  companyName: string;
 
-  @Column("varchar", {
-    name: "company_contact_full_name",
+  @Field({ nullable: true })
+  @Column('varchar', {
+    name: 'company_contact_full_name',
     nullable: true,
     length: 255,
   })
-  companyContactFullName: string | null;
+  companyContactFullName: string;
 
-  @Column("varchar", {
-    name: "company_contact_phone",
+  @Field({ nullable: true })
+  @Column('varchar', {
+    name: 'company_contact_phone',
     nullable: true,
     length: 255,
   })
-  companyContactPhone: string | null;
+  companyContactPhone: string;
 
-  @Column("varchar", {
-    name: "company_contact_email",
+  @Field({ nullable: true })
+  @Column('varchar', {
+    name: 'company_contact_email',
     nullable: true,
     length: 255,
   })
-  companyContactEmail: string | null;
+  companyContactEmail: string;
 
-  @Column("varchar", {
-    name: "company_description",
+  @Field({ nullable: true })
+  @Column('varchar', {
+    name: 'company_description',
     nullable: true,
     length: 255,
   })
-  companyDescription: string | null;
+  companyDescription: string;
 
-  @Column("varchar", {
-    name: "technical_authority_full_name",
+  @Field({ nullable: true })
+  @Column('varchar', {
+    name: 'technical_authority_full_name',
     nullable: true,
     length: 255,
   })
-  technicalAuthorityFullName: string | null;
+  technicalAuthorityFullName: string;
 
-  @Column("varchar", {
-    name: "technical_authority_phone_number",
+  @Field({ nullable: true })
+  @Column('varchar', {
+    name: 'technical_authority_phone_number',
     nullable: true,
     length: 255,
   })
-  technicalAuthorityPhoneNumber: string | null;
+  technicalAuthorityPhoneNumber: string;
 
-  @Column("varchar", {
-    name: "technical_manager_email_service",
+  @Field({ nullable: true })
+  @Column('varchar', {
+    name: 'technical_manager_email_service',
     nullable: true,
     length: 255,
   })
-  technicalManagerEmailService: string | null;
+  technicalManagerEmailService: string;
 
-  @Column("datetime", { name: "created_at" })
+  @Field()
+  @Column('datetime', { name: 'created_at' })
   createdAt: Date;
 
-  @Column("datetime", { name: "updated_at" })
+  @Field()
+  @Column('datetime', { name: 'updated_at' })
   updatedAt: Date;
 
-  @Column("bigint", { name: "address_id", nullable: true })
-  addressId: string | null;
+  @Field({ nullable: true })
+  @Column('bigint', { name: 'address_id', nullable: true })
+  addressId: string;
 
-  @OneToMany(() => Addresses, (addresses) => addresses.customer)
+  @Field(() => [Addresses])
+  @OneToMany(() => Addresses, addresses => addresses.customer)
   addresses: Addresses[];
 }

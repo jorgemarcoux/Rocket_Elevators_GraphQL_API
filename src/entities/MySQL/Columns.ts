@@ -1,32 +1,67 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import { Field, ID, Int, ObjectType } from 'type-graphql';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Batteries } from './Batteries';
+import { Elevators } from './Elevators';
 
-@Index("index_columns_on_battery_id", ["batteryId"], {})
-@Entity("columns", { schema: "app_development" })
+@Index('index_columns_on_battery_id', ['batteryId'], {})
+@ObjectType()
+@Entity('columns', { schema: 'app_development' })
 export class Columns {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
+  @Field(() => ID)
+  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
-  @Column("bigint", { name: "battery_id", nullable: true })
-  batteryId: string | null;
+  @Field({ nullable: true })
+  @Column('bigint', { name: 'battery_id', nullable: true })
+  batteryId: string;
 
-  @Column("varchar", { name: "column_type", nullable: true, length: 255 })
-  columnType: string | null;
+  @Field({ nullable: true })
+  @Column('varchar', { name: 'column_type', nullable: true, length: 255 })
+  columnType: string;
 
-  @Column("varchar", { name: "column_status", nullable: true, length: 255 })
-  columnStatus: string | null;
+  @Field({ nullable: true })
+  @Column('varchar', { name: 'column_status', nullable: true, length: 255 })
+  columnStatus: string;
 
-  @Column("int", { name: "number_of_floors_served", nullable: true })
-  numberOfFloorsServed: number | null;
+  @Field({ nullable: true })
+  @Column('int', { name: 'number_of_floors_served', nullable: true })
+  numberOfFloorsServed: number;
 
-  @Column("varchar", { name: "information", nullable: true, length: 255 })
-  information: string | null;
+  @Field({ nullable: true })
+  @Column('varchar', { name: 'information', nullable: true, length: 255 })
+  information: string;
 
-  @Column("varchar", { name: "notes", nullable: true, length: 255 })
-  notes: string | null;
+  @Field({ nullable: true })
+  @Column('varchar', { name: 'notes', nullable: true, length: 255 })
+  notes: string;
 
-  @Column("datetime", { name: "created_at" })
+  @Column('datetime', { name: 'created_at' })
   createdAt: Date;
 
-  @Column("datetime", { name: "updated_at" })
+  @Column('datetime', { name: 'updated_at' })
   updatedAt: Date;
+
+  @Field(() => Batteries)
+  @ManyToOne(() => Batteries, battery => battery.columns)
+  @JoinColumn({ name: 'battery_id', referencedColumnName: 'id' })
+  battery: Batteries;
+
+  @Field(() => [Elevators])
+  @OneToMany(() => Elevators, elevators => elevators.column, {
+    eager: true,
+  })
+  elevators: Elevators[];
+
+  @Field(() => Int)
+  elevatorCount(): number {
+    return this.elevators.length;
+  }
 }

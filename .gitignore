@@ -2,3 +2,4 @@ node_modules
 dist
 output
 ormconfig.js
+query_check.sql

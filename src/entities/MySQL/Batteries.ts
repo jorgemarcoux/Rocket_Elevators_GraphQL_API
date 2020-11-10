@@ -1,46 +1,81 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import { Field, ID, ObjectType } from 'type-graphql';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Buildings } from './Buildings';
+import { Columns } from './Columns';
 
-@Index("index_batteries_on_building_id", ["buildingId"], {})
-@Index("index_batteries_on_employee_id", ["employeeId"], {})
-@Entity("batteries", { schema: "app_development" })
+@Index('index_batteries_on_building_id', ['buildingId'], {})
+@Index('index_batteries_on_employee_id', ['employeeId'], {})
+@ObjectType()
+@Entity('batteries', { schema: 'app_development' })
 export class Batteries {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
+  @Field(() => ID)
+  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
-  @Column("bigint", { name: "building_id", nullable: true })
-  buildingId: string | null;
+  @Field({ nullable: true })
+  @Column('bigint', { name: 'building_id', nullable: true })
+  buildingId: string;
 
-  @Column("bigint", { name: "employee_id", nullable: true })
-  employeeId: string | null;
+  @Field({ nullable: true })
+  @Column('bigint', { name: 'employee_id', nullable: true })
+  employeeId: string;
 
-  @Column("varchar", { name: "battery_type", nullable: true, length: 255 })
-  batteryType: string | null;
+  @Field({ nullable: true })
+  @Column('varchar', { name: 'battery_type', nullable: true, length: 255 })
+  batteryType: string;
 
-  @Column("varchar", { name: "battery_status", nullable: true, length: 255 })
-  batteryStatus: string | null;
+  @Field({ nullable: true })
+  @Column('varchar', { name: 'battery_status', nullable: true, length: 255 })
+  batteryStatus: string;
 
-  @Column("date", { name: "date_of_commissioning", nullable: true })
-  dateOfCommissioning: string | null;
+  @Field({ nullable: true })
+  @Column('date', { name: 'date_of_commissioning', nullable: true })
+  dateOfCommissioning: string;
 
-  @Column("date", { name: "date_of_last_inspection", nullable: true })
-  dateOfLastInspection: string | null;
+  @Field({ nullable: true })
+  @Column('date', { name: 'date_of_last_inspection', nullable: true })
+  dateOfLastInspection: string;
 
-  @Column("varchar", {
-    name: "certificate_of_operations",
+  @Field({ nullable: true })
+  @Column('varchar', {
+    name: 'certificate_of_operations',
     nullable: true,
     length: 255,
   })
-  certificateOfOperations: string | null;
+  certificateOfOperations: string;
 
-  @Column("varchar", { name: "information", nullable: true, length: 255 })
-  information: string | null;
+  @Field({ nullable: true })
+  @Column('varchar', { name: 'information', nullable: true, length: 255 })
+  information: string;
 
-  @Column("varchar", { name: "notes", nullable: true, length: 255 })
-  notes: string | null;
+  @Field({ nullable: true })
+  @Column('varchar', { name: 'notes', nullable: true, length: 255 })
+  notes: string;
 
-  @Column("datetime", { name: "created_at" })
+  @Field()
+  @Column('datetime', { name: 'created_at' })
   createdAt: Date;
 
-  @Column("datetime", { name: "updated_at" })
+  @Field()
+  @Column('datetime', { name: 'updated_at' })
   updatedAt: Date;
+
+  @Field(() => Buildings)
+  @ManyToOne(() => Buildings, building => building.batteries)
+  @JoinColumn({ name: 'building_id', referencedColumnName: 'id' })
+  building: Buildings;
+
+  @Field(() => [Columns])
+  @OneToMany(() => Columns, columns => columns.battery, {
+    eager: true,
+  })
+  columns: Columns[];
 }

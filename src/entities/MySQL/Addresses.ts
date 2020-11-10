@@ -20,6 +20,11 @@ export class Addresses extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
+  @Field(() => String)
+  fullAddress(): string {
+    return `${this.numberAndStreet} ${this.city} ${this.state} ${this.postalCode} ${this.country}`;
+  }
+
   @Field()
   @Column('varchar', { name: 'type_of_address', nullable: true, length: 255 })
   typeOfAddress: string;
@@ -88,17 +93,21 @@ export class Addresses extends BaseEntity {
   @Column('datetime', { name: 'updated_at' })
   updatedAt: Date;
 
+  @Field()
   @ManyToOne(() => Buildings, buildings => buildings.addresses, {
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION',
   })
+  @Field()
   @JoinColumn([{ name: 'building_id', referencedColumnName: 'id' }])
   building: Buildings;
 
+  @Field()
   @ManyToOne(() => Customers, customers => customers.addresses, {
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION',
   })
+  @Field()
   @JoinColumn([{ name: 'customer_id', referencedColumnName: 'id' }])
   customer: Customers;
 }

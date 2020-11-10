@@ -1,3 +1,4 @@
+import { Field, ID, ObjectType } from 'type-graphql';
 import {
   Column,
   Entity,
@@ -5,34 +6,43 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { Buildings } from "./Buildings";
+} from 'typeorm';
+import { Buildings } from './Buildings';
 
-@Index("index_building_details_on_building_id", ["buildingId"], {})
-@Entity("building_details", { schema: "app_development" })
+@Index('index_building_details_on_building_id', ['buildingId'], {})
+@ObjectType()
+@Entity('building_details', { schema: 'app_development' })
 export class BuildingDetails {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
+  @Field(() => ID)
+  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
-  @Column("bigint", { name: "building_id", nullable: true })
-  buildingId: string | null;
+  @Field()
+  @Column('bigint', { name: 'building_id', nullable: true })
+  buildingId: string;
 
-  @Column("varchar", { name: "information_key", nullable: true, length: 255 })
-  informationKey: string | null;
+  @Field()
+  @Column('varchar', { name: 'information_key', nullable: true, length: 255 })
+  informationKey: string;
 
-  @Column("varchar", { name: "value", nullable: true, length: 255 })
-  value: string | null;
+  @Field()
+  @Column('varchar', { name: 'value', nullable: true, length: 255 })
+  value: string;
 
-  @Column("datetime", { name: "created_at" })
+  @Field()
+  @Column('datetime', { name: 'created_at' })
   createdAt: Date;
 
-  @Column("datetime", { name: "updated_at" })
+  @Field()
+  @Column('datetime', { name: 'updated_at' })
   updatedAt: Date;
 
-  @ManyToOne(() => Buildings, (buildings) => buildings.buildingDetails, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
+  @Field(() => [Buildings])
+  @ManyToOne(() => Buildings, buildings => buildings.buildingDetails, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
   })
-  @JoinColumn([{ name: "building_id", referencedColumnName: "id" }])
+  @Field(() => Buildings)
+  @JoinColumn([{ name: 'building_id', referencedColumnName: 'id' }])
   building: Buildings;
 }

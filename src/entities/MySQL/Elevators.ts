@@ -1,48 +1,76 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import { Field, ID, ObjectType } from 'type-graphql';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Columns } from './Columns';
 
-@Index("index_elevators_on_column_id", ["columnId"], {})
-@Entity("elevators", { schema: "app_development" })
+@Index('index_elevators_on_column_id', ['columnId'], {})
+@ObjectType()
+@Entity('elevators', { schema: 'app_development' })
 export class Elevators {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
+  @Field(() => ID)
+  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
-  @Column("bigint", { name: "column_id", nullable: true })
-  columnId: string | null;
+  @Field()
+  @Column('bigint', { name: 'column_id', nullable: true })
+  columnId: string;
 
-  @Column("varchar", { name: "serial_number", nullable: true, length: 255 })
-  serialNumber: string | null;
+  @Field()
+  @Column('varchar', { name: 'serial_number', nullable: true, length: 255 })
+  serialNumber: string;
 
-  @Column("varchar", { name: "elevator_model", nullable: true, length: 255 })
-  elevatorModel: string | null;
+  @Field()
+  @Column('varchar', { name: 'elevator_model', nullable: true, length: 255 })
+  elevatorModel: string;
 
-  @Column("varchar", { name: "elevator_type", nullable: true, length: 255 })
-  elevatorType: string | null;
+  @Field()
+  @Column('varchar', { name: 'elevator_type', nullable: true, length: 255 })
+  elevatorType: string;
 
-  @Column("varchar", { name: "elevator_status", nullable: true, length: 255 })
-  elevatorStatus: string | null;
+  @Field()
+  @Column('varchar', { name: 'elevator_status', nullable: true, length: 255 })
+  elevatorStatus: string;
 
-  @Column("date", { name: "date_of_commissioning", nullable: true })
-  dateOfCommissioning: string | null;
+  @Field()
+  @Column('date', { name: 'date_of_commissioning', nullable: true })
+  dateOfCommissioning: string;
 
-  @Column("date", { name: "date_of_last_inspection", nullable: true })
-  dateOfLastInspection: string | null;
+  @Field()
+  @Column('date', { name: 'date_of_last_inspection', nullable: true })
+  dateOfLastInspection: string;
 
-  @Column("varchar", {
-    name: "certificate_of_inspection",
+  @Field()
+  @Column('varchar', {
+    name: 'certificate_of_inspection',
     nullable: true,
     length: 255,
   })
-  certificateOfInspection: string | null;
+  certificateOfInspection: string;
 
-  @Column("varchar", { name: "information", nullable: true, length: 255 })
-  information: string | null;
+  @Field()
+  @Column('varchar', { name: 'information', nullable: true, length: 255 })
+  information: string;
 
-  @Column("varchar", { name: "notes", nullable: true, length: 255 })
-  notes: string | null;
+  @Field()
+  @Column('varchar', { name: 'notes', nullable: true, length: 255 })
+  notes: string;
 
-  @Column("datetime", { name: "created_at" })
+  @Field()
+  @Column('datetime', { name: 'created_at' })
   createdAt: Date;
 
-  @Column("datetime", { name: "updated_at" })
+  @Field()
+  @Column('datetime', { name: 'updated_at' })
   updatedAt: Date;
+
+  @Field(() => Columns)
+  @ManyToOne(() => Columns, column => column.elevators)
+  @JoinColumn({ name: 'column_id', referencedColumnName: 'id' })
+  column: Columns;
 }
