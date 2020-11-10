@@ -38,3 +38,7 @@
 - you should now be able to run the server, open your terminal and type in `yarn start`
 - assuming things go well, http://localhost:4000/graphql will allow you to query the DBs
 - please note that not all tables can be queried, there's no point in setting all of them up since we will only use one with GraphQL
+- once you're at this step, you can click on the vertical DOCS button on the localhost page to see what can be queried
+- sample query:
+
+![query](https://i.gyazo.com/5a4396ba82c8466127666c93b3144023.png)
