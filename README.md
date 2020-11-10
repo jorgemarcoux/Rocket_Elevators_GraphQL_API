@@ -5,8 +5,8 @@
 - create a file called 'ormconfig.js' in the root folder
 - put this stuff in the file, replace the missing credentials with yours - note: 'database' is the name of the database (app_development, dwh_development, etc.):
 
-module.exports = [
-  {
+module.exports = \[
+ \{
     name: 'default',
     type: 'mysql',
     host: 'localhost',
@@ -16,9 +16,9 @@ module.exports = [
     database: 'baz', 
     synchronize: false,
     logging: true,
-    entities: ['./src/entities/MySQL/*.*'],
-  },
-  {
+    entities: \['./src/entities/MySQL/*.*'\],
+ \},
+ \{
     name: 'pg',
     type: 'postgres',
     host: 'localhost',
@@ -29,9 +29,9 @@ module.exports = [
     schema: 'public',
     synchronize: false,
     logging: true,
-    entities: ['./src/entities/PG/*.*'],
-  },
-]
+    entities: \['./src/entities/PG/*.*'\],
+\},
+\]
 
 - you should now be able to run the server, open your terminal and type in `yarn start`
 - assuming things go well, http://localhost:4000/graphql will allow you to query the DBs
