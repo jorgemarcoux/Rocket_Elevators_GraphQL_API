@@ -3,12 +3,14 @@ import {
   BaseEntity,
   Column,
   Entity,
+  getRepository,
   Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { FactInterventions } from '../PG/FactInterventions';
 import { Batteries } from './Batteries';
 import { Elevators } from './Elevators';
 
@@ -62,5 +64,14 @@ export class Columns extends BaseEntity {
   @Field(() => Int)
   elevatorCount(): number {
     return this.elevators.length;
+  }
+
+  @Field(() => [FactInterventions], { nullable: true })
+  async interventions(): Promise<FactInterventions[]> {
+    return await getRepository(FactInterventions, 'pg').find({
+      where: {
+        columnId: this.id,
+      },
+    });
   }
 }

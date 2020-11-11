@@ -7,11 +7,14 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { FactInterventions } from '../PG/FactInterventions';
 import { Addresses } from './Addresses';
 import { Batteries } from './Batteries';
 import { BuildingDetails } from './BuildingDetails';
+import { Customers } from './Customers';
 import { Employees } from './Employees';
 
 @Index('index_buildings_on_address_id', ['addressId'], {})
@@ -102,9 +105,10 @@ export class Buildings extends BaseEntity {
   @Column('bigint', { name: 'address_id', nullable: true })
   addressId: string;
 
-  @Field(() => [Addresses], { nullable: true })
-  @OneToMany(() => Addresses, addresses => addresses.building)
-  addresses: Addresses[];
+  @Field(() => Addresses)
+  @JoinColumn([{ name: 'address_id', referencedColumnName: 'id' }])
+  @OneToOne(() => Addresses, a => a.building)
+  address: Addresses;
 
   @Field(() => [BuildingDetails], { nullable: true })
   @OneToMany(() => BuildingDetails, buildingDetails => buildingDetails.building)
@@ -119,6 +123,14 @@ export class Buildings extends BaseEntity {
   @ManyToOne(() => Employees, employees => employees.technicalContactFor)
   @JoinColumn([{ name: 'technical_contact_id', referencedColumnName: 'id' }])
   technicalContact: Employees;
+
+  @Field(() => Customers, { nullable: true })
+  @ManyToOne(() => Customers, c => c.buildings)
+  @JoinColumn([{ name: 'customer_id', referencedColumnName: 'id' }])
+  customer: Customers;
+
+  @Field(() => [FactInterventions], { nullable: true })
+  interventions: FactInterventions[];
 
   @Field(() => [Batteries])
   @OneToMany(() => Batteries, batteries => batteries.building)

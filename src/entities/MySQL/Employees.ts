@@ -8,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { FactInterventions } from '../PG/FactInterventions';
 import { Buildings } from './Buildings';
 
 @Index('index_employees_on_user_id', ['userId'], {})
@@ -17,6 +18,16 @@ export class Employees extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
+
+  @Field(() => String)
+  employeeName(): string {
+    return `${this.firstName} ${this.lastName}`;
+  }
+
+  @Field(() => String)
+  employeeContactInfo(): string {
+    return ` ${this.email}, ${this.phone}`;
+  }
 
   @Field()
   @Column('varchar', { name: 'first_name', nullable: true, length: 255 })
@@ -58,4 +69,7 @@ export class Employees extends BaseEntity {
   @OneToMany(() => Buildings, buildings => buildings.technicalContact)
   @JoinColumn([{ name: 'id', referencedColumnName: 'technical_contact_id' }])
   technicalContactFor: Buildings[];
+
+  @Field(() => [FactInterventions], { nullable: true })
+  interventions: FactInterventions[];
 }

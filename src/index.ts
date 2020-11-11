@@ -4,7 +4,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { MySQLresolver } from './resolvers/MySQLresolver';
-import { PGresolver } from './resolvers/PGresolver';
+import { InterventionResolvers } from './resolvers/InterventionResolvers';
 
 (async () => {
   const app = express();
@@ -13,7 +13,7 @@ import { PGresolver } from './resolvers/PGresolver';
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [MySQLresolver, PGresolver],
+      resolvers: [MySQLresolver, InterventionResolvers],
       validate: true,
     }),
     context: ({ req, res }) => ({ req, res }),

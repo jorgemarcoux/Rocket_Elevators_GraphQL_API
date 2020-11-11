@@ -3,12 +3,13 @@ import {
   BaseEntity,
   Column,
   Entity,
+  getRepository,
   Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { FactElevators } from '../PG/FactElevators';
+import { FactInterventions } from '../PG/FactInterventions';
 import { Columns } from './Columns';
 
 @Index('index_elevators_on_column_id', ['columnId'], {})
@@ -76,6 +77,12 @@ export class Elevators extends BaseEntity {
   @JoinColumn({ name: 'column_id', referencedColumnName: 'id' })
   column: Columns;
 
-  @Field(() => [FactElevators])
-  facts: FactElevators[];
+  @Field(() => [FactInterventions], { nullable: true })
+  async interventions(): Promise<FactInterventions[]> {
+    return await getRepository(FactInterventions, 'pg').find({
+      where: {
+        elevatorId: this.id,
+      },
+    });
+  }
 }

@@ -3,12 +3,14 @@ import {
   BaseEntity,
   Column,
   Entity,
+  getRepository,
   Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { FactInterventions } from '../PG/FactInterventions';
 import { Buildings } from './Buildings';
 import { Columns } from './Columns';
 
@@ -77,4 +79,13 @@ export class Batteries extends BaseEntity {
   @Field(() => [Columns])
   @OneToMany(() => Columns, columns => columns.battery)
   columns: Columns[];
+
+  @Field(() => [FactInterventions], { nullable: true })
+  async interventions(): Promise<FactInterventions[]> {
+    return await getRepository(FactInterventions, 'pg').find({
+      where: {
+        batteryId: this.id,
+      },
+    });
+  }
 }

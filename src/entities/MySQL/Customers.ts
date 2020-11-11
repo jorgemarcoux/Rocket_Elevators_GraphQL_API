@@ -3,10 +3,14 @@ import {
   Column,
   Entity,
   Index,
+  JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Addresses } from './Addresses';
+import { Buildings } from './Buildings';
+import { Users } from './Users';
 
 @Index('index_customers_on_address_id', ['addressId'], {})
 @Index('index_customers_on_user_id', ['userId'], {})
@@ -20,6 +24,11 @@ export class Customers {
   @Field({ nullable: true })
   @Column('bigint', { name: 'user_id', nullable: true })
   userId: string;
+
+  @Field({ nullable: true })
+  @OneToOne(() => Users, u => u.customer)
+  @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
+  user: Users;
 
   @Field({ nullable: true })
   @Column('varchar', { name: 'company_name', nullable: true, length: 255 })
@@ -96,4 +105,8 @@ export class Customers {
   @Field(() => Addresses)
   @OneToMany(() => Addresses, addresses => addresses.customer)
   addresses: Addresses;
+
+  @Field(() => [Buildings])
+  @OneToMany(() => Buildings, b => b.customer)
+  buildings: Buildings[];
 }

@@ -6,6 +6,7 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Buildings } from './Buildings';
@@ -20,7 +21,7 @@ export class Addresses extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   fullAddress(): string {
     return `${this.numberAndStreet} ${this.city} ${this.state} ${this.postalCode} ${this.country}`;
   }
@@ -77,7 +78,7 @@ export class Addresses extends BaseEntity {
   @Column('float', { name: 'longitude', nullable: true, precision: 12 })
   longitude: number;
 
-  @Field()
+  @Field({ nullable: true })
   @Column('bigint', { name: 'building_id', nullable: true })
   buildingId: string;
 
@@ -93,12 +94,8 @@ export class Addresses extends BaseEntity {
   @Column('datetime', { name: 'updated_at' })
   updatedAt: Date;
 
-  @Field()
-  @ManyToOne(() => Buildings, buildings => buildings.addresses, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'NO ACTION',
-  })
-  @Field()
+  @Field({ nullable: true })
+  @OneToOne(() => Buildings, b => b.address)
   @JoinColumn([{ name: 'building_id', referencedColumnName: 'id' }])
   building: Buildings;
 
