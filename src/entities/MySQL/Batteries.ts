@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 import {
+  BaseEntity,
   Column,
   Entity,
   Index,
@@ -15,7 +16,7 @@ import { Columns } from './Columns';
 @Index('index_batteries_on_employee_id', ['employeeId'], {})
 @ObjectType()
 @Entity('batteries', { schema: 'app_development' })
-export class Batteries {
+export class Batteries extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
@@ -74,8 +75,6 @@ export class Batteries {
   building: Buildings;
 
   @Field(() => [Columns])
-  @OneToMany(() => Columns, columns => columns.battery, {
-    eager: true,
-  })
+  @OneToMany(() => Columns, columns => columns.battery)
   columns: Columns[];
 }

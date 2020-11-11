@@ -37,7 +37,7 @@ export class BuildingDetails {
   @Column('datetime', { name: 'updated_at' })
   updatedAt: Date;
 
-  @Field(() => [Buildings])
+  @Field(() => Buildings)
   @ManyToOne(() => Buildings, buildings => buildings.buildingDetails, {
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION',

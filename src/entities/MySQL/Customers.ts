@@ -93,7 +93,7 @@ export class Customers {
   @Column('bigint', { name: 'address_id', nullable: true })
   addressId: string;
 
-  @Field(() => [Addresses])
+  @Field(() => Addresses)
   @OneToMany(() => Addresses, addresses => addresses.customer)
-  addresses: Addresses[];
+  addresses: Addresses;
 }

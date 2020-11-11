@@ -1,10 +1,16 @@
 import { Field, ObjectType } from 'type-graphql';
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  Index,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Index('fact_elevators_pkey', ['id'], { unique: true })
 @ObjectType()
 @Entity('fact_elevators', { database: 'dwh_development', schema: 'public' })
-export class FactElevators {
+export class FactElevators extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;

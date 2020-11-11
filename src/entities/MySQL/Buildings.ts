@@ -103,44 +103,24 @@ export class Buildings extends BaseEntity {
   addressId: string;
 
   @Field(() => [Addresses], { nullable: true })
-  @OneToMany(() => Addresses, addresses => addresses.building, { eager: true })
+  @OneToMany(() => Addresses, addresses => addresses.building)
   addresses: Addresses[];
 
   @Field(() => [BuildingDetails], { nullable: true })
-  @OneToMany(
-    () => BuildingDetails,
-    buildingDetails => buildingDetails.building,
-    { eager: true }
-  )
+  @OneToMany(() => BuildingDetails, buildingDetails => buildingDetails.building)
   buildingDetails: BuildingDetails[];
 
-  @Field(() => [Employees], { nullable: true })
-  @ManyToOne(() => Employees, employees => employees.buildings, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'NO ACTION',
-    eager: true,
-  })
   @Field(() => Employees, { nullable: true })
+  @ManyToOne(() => Employees, employees => employees.adminContactFor)
   @JoinColumn([{ name: 'admin_contact_id', referencedColumnName: 'id' }])
   adminContact: Employees;
 
-  @Field(() => [Employees], { nullable: true })
-  @ManyToOne(() => Employees, employees => employees.buildings2, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'NO ACTION',
-    eager: true,
-  })
   @Field(() => Employees, { nullable: true })
+  @ManyToOne(() => Employees, employees => employees.technicalContactFor)
   @JoinColumn([{ name: 'technical_contact_id', referencedColumnName: 'id' }])
   technicalContact: Employees;
 
-  // @Field(() => [Batteries], { nullable: true })
-  // @JoinColumn([{ name: 'building_id', referencedColumnName: 'id' }])
-  // batteries: Batteries[];
-
   @Field(() => [Batteries])
-  @OneToMany(() => Batteries, batteries => batteries.building, {
-    eager: true,
-  })
+  @OneToMany(() => Batteries, batteries => batteries.building)
   batteries: Batteries[];
 }

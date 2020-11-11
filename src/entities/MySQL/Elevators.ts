@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 import {
+  BaseEntity,
   Column,
   Entity,
   Index,
@@ -7,12 +8,13 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { FactElevators } from '../PG/FactElevators';
 import { Columns } from './Columns';
 
 @Index('index_elevators_on_column_id', ['columnId'], {})
 @ObjectType()
-@Entity('elevators', { schema: 'app_development' })
-export class Elevators {
+@Entity('elevators', { database: 'app_development', schema: 'app_development' })
+export class Elevators extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
   id: string;
@@ -73,4 +75,7 @@ export class Elevators {
   @ManyToOne(() => Columns, column => column.elevators)
   @JoinColumn({ name: 'column_id', referencedColumnName: 'id' })
   column: Columns;
+
+  @Field(() => [FactElevators])
+  facts: FactElevators[];
 }

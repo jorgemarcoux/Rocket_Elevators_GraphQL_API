@@ -9,18 +9,27 @@ export class MySQLresolver {
   addresses() {
     return Addresses.find();
   }
-  @Query(() => Addresses)
-  first() {
-    return Addresses.findOne();
-  }
 
   @Query(() => Buildings)
-  async getBuildingInfo(@Arg('id') id: Number): Promise<Buildings> {
+  async getBuildingByID(@Arg('id') id: Number): Promise<Buildings> {
     return Buildings.findOneOrFail({ where: { id: id } });
   }
 
   @Query(() => [Buildings])
   buildings() {
-    return Buildings.find();
+    return Buildings.find({
+      join: {
+        alias: 'building',
+        leftJoinAndSelect: {
+          buildingDetails: 'building.buildingDetails',
+          adminContact: 'building.adminContact',
+          technicalContact: 'building.technicalContact',
+          address: 'building.addresses',
+          batteries: 'building.batteries',
+          columns: 'batteries.columns',
+          elevators: 'columns.elevators',
+        },
+      },
+    });
   }
 }
