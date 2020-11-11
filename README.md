@@ -42,3 +42,42 @@
 - sample query:
 
 ![query](https://i.gyazo.com/5a4396ba82c8466127666c93b3144023.png)
+
+- a nice long query with lots of data:
+
+```javascript
+query{
+  buildings{
+    addresses{
+      fullAddress
+    }
+    adminContact{
+      function
+      firstName
+      lastName
+    }
+    technicalContact{
+      function
+      firstName
+      lastName
+    }
+    batteries{
+      id
+      dateOfCommissioning
+      columns{
+        id
+        numberOfFloorsServed
+        elevatorCount
+        elevators{
+          id
+          elevatorType
+          elevatorModel
+          elevatorStatus
+          serialNumber
+          
+        }
+      }
+    }
+  }
+}
+```
