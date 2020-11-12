@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 're-graphql-api'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c69fce613b3d4695a7dac32da0d542fc }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: ${{env.DOTNET_ROOT}}/myapp 
