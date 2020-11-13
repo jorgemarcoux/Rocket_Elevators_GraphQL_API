@@ -24,7 +24,7 @@ export class MySQLresolver {
           buildingDetails: 'building.buildingDetails',
           adminContact: 'building.adminContact',
           technicalContact: 'building.technicalContact',
-          address: 'building.addresses',
+          address: 'building.address',
           batteries: 'building.batteries',
           columns: 'batteries.columns',
           elevators: 'columns.elevators',

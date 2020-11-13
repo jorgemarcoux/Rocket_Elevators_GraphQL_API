@@ -6,7 +6,7 @@ import { Customers } from './Customers';
 @Index('index_users_on_reset_password_token', ['resetPasswordToken'], {
   unique: true,
 })
-@Entity('users', { schema: 'app_development' })
+@Entity('users', { schema: process.env.MYSQLDB })
 @ObjectType()
 export class Users {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })

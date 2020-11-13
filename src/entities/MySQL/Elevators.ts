@@ -14,7 +14,10 @@ import { Columns } from './Columns';
 
 @Index('index_elevators_on_column_id', ['columnId'], {})
 @ObjectType()
-@Entity('elevators', { database: 'app_development', schema: 'app_development' })
+@Entity('elevators', {
+  database: process.env.MYSQLDB,
+  schema: process.env.MYSQLDB,
+})
 export class Elevators extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })

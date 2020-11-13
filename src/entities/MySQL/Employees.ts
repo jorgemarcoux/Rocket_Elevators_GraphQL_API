@@ -13,7 +13,7 @@ import { Buildings } from './Buildings';
 
 @Index('index_employees_on_user_id', ['userId'], {})
 @ObjectType()
-@Entity('employees', { schema: 'app_development' })
+@Entity('employees', { schema: process.env.MYSQLDB })
 export class Employees extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
