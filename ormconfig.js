@@ -9,7 +9,7 @@ module.exports = [
     database: process.env.MYSQLDB || 'app_development',
     synchronize: false,
     logging: true,
-    entities: ['./src/entities/MySQL/*.*'],
+    entities: [__dirname + '/entities/MySQL/*.*'],
   },
   {
     name: 'pg',
@@ -22,6 +22,6 @@ module.exports = [
     schema: 'public',
     synchronize: false,
     logging: true,
-    entities: ['./src/entities/PG/*.*'],
+    entities: [__dirname + '/entities/PG/*.*'],
   },
 ];
