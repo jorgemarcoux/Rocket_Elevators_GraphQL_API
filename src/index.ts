@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { createConnections } from 'typeorm';
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { MySQLresolver } from './resolvers/MySQLresolver';
 import { InterventionResolvers } from './resolvers/InterventionResolvers';
-const express = require('express');
-const ApolloServer = require('apollo-server-express');
 
 (async () => {
   const app = express();

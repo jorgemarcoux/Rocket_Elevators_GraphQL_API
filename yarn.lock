@@ -2451,9 +2451,9 @@ pg-types@^2.1.0:
     postgres-interval "^1.1.0"
 
 pg@^8.0.3:
-  version "8.5.0"
-  resolved "https://registry.yarnpkg.com/pg/-/pg-8.5.0.tgz#c29332763ffd51ce52b07dc20dc2337f4d213d08"
-  integrity sha512-h+KHEwce67pAQilZhMCpCx1RC7rR1US7mdjwvKzHRaRxKQxbbFtv5UlwjzqILQ1dwhK+RVGqOVcahE/2KOcaeA==
+  version "8.5.1"
+  resolved "https://registry.yarnpkg.com/pg/-/pg-8.5.1.tgz#34dcb15f6db4a29c702bf5031ef2e1e25a06a120"
+  integrity sha512-9wm3yX9lCfjvA98ybCyw2pADUivyNWT/yIP4ZcDVpMN0og70BUWYEGXPCTAQdGTAqnytfRADb7NERrY1qxhIqw==
   dependencies:
     buffer-writer "2.0.0"
     packet-reader "1.0.0"
@@ -3151,10 +3151,10 @@ typeorm@0.2.20:
     yargonaut "^1.1.2"
     yargs "^13.2.1"
 
-typescript@3.7.2:
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.2.tgz#27e489b95fa5909445e9fef5ee48d81697ad18fb"
-  integrity sha512-ml7V7JfiN2Xwvcer+XAf2csGO1bPBdRbFCkYBczNZggrBZ9c7G3riSUeJmqEU5uOtXNPMhE3n+R4FA/3YOAWOQ==
+typescript@^3.7.2:
+  version "3.9.7"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
+  integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
 undefsafe@^2.0.2:
   version "2.0.3"
