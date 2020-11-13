@@ -18,6 +18,7 @@ import { InterventionResolvers } from './resolvers/InterventionResolvers';
     }),
     context: ({ req, res }) => ({ req, res }),
     playground: true,
+    introspection: true,
   });
 
   apolloServer.applyMiddleware({ app, cors: false });
