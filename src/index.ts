@@ -8,26 +8,23 @@ import { InterventionResolvers } from './resolvers/InterventionResolvers';
 
 (async () => {
   const app = express();
+  require('dotenv').config({ path: __dirname + '/.env' });
 
-  try {
-    await createConnections();
+  await createConnections();
 
-    const apolloServer = new ApolloServer({
-      schema: await buildSchema({
-        resolvers: [MySQLresolver, InterventionResolvers],
-        validate: true,
-      }),
-      context: ({ req, res }) => ({ req, res }),
-      playground: true,
-      introspection: true,
-    });
+  const apolloServer = new ApolloServer({
+    schema: await buildSchema({
+      resolvers: [MySQLresolver, InterventionResolvers],
+      validate: true,
+    }),
+    context: ({ req, res }) => ({ req, res }),
+    playground: true,
+    introspection: true,
+  });
 
-    apolloServer.applyMiddleware({ app, cors: false });
-    const port = process.env.PORT || 4000;
-    app.listen(port, () => {
-      console.log(`server started at http://localhost:${port}/graphql`);
-    });
-  } catch (e) {
-    console.log(e);
-  }
+  apolloServer.applyMiddleware({ app, cors: false });
+  const port = process.env.PORT || 4000;
+  app.listen(port, () => {
+    console.log(`server started at http://localhost:${port}/graphql`);
+  });
 })();

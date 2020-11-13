@@ -9,7 +9,11 @@ module.exports = [
     database: process.env.MYSQLDB || 'app_development',
     synchronize: false,
     logging: true,
-    entities: [process.env.MYSQLMODELS] || ['./src/entities/MySQL/*.*'],
+    entities: [
+      process.env.NODE_ENV === 'development'
+        ? './src/entities/MySQL/*.*'
+        : './dist/entities/MySQL/*.*',
+    ],
   },
   {
     name: 'pg',
@@ -22,6 +26,10 @@ module.exports = [
     schema: 'public',
     synchronize: false,
     logging: true,
-    entities: [process.env.PGMODELS] || ['./src/entities/PG/*.*'],
+    entities: [
+      process.env.NODE_ENV === 'development'
+        ? './src/entities/PG/*.*'
+        : './dist/entities/PG/*.*',
+    ],
   },
 ];

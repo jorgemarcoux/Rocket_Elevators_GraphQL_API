@@ -3,9 +3,6 @@ import { FindOperator, getRepository, In } from 'typeorm';
 import { FactInterventions } from '../entities/PG/FactInterventions';
 import { Buildings } from '../entities/MySQL/Buildings';
 import { Employees } from '../entities/MySQL/Employees';
-// import { Elevators } from '../entities/MySQL/Elevators';
-// import { Columns } from '../entities/MySQL/Columns';
-// import { Batteries } from '../entities/MySQL/Batteries';
 
 @Resolver()
 export class InterventionResolvers {
