@@ -11,7 +11,7 @@ import { Buildings } from './Buildings';
 
 @Index('index_building_details_on_building_id', ['buildingId'], {})
 @ObjectType()
-@Entity('building_details', { schema: 'app_development' })
+@Entity('building_details', { schema: process.env.MYSQLDB })
 export class BuildingDetails {
   @Field(() => ID)
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })

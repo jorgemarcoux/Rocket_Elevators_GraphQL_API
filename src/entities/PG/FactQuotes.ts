@@ -3,7 +3,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 @Index('fact_quotes_pkey', ['id'], { unique: true })
 @ObjectType()
-@Entity('fact_quotes', { database: 'dwh_development', schema: 'public' })
+@Entity('fact_quotes', { database: process.env.PGDB, schema: 'public' })
 export class FactQuotes {
   @Field()
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })

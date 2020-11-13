@@ -14,7 +14,7 @@ import { Employees } from '../MySQL/Employees';
 
 @Index('fact_interventions_pkey', ['id'], { unique: true })
 @ObjectType()
-@Entity('fact_interventions', { schema: 'public' })
+@Entity('fact_interventions', { database: process.env.PGDB, schema: 'public' })
 export class FactInterventions extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })

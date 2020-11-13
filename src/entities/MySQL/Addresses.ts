@@ -15,7 +15,10 @@ import { Customers } from './Customers';
 @Index('index_addresses_on_building_id', ['buildingId'], {})
 @Index('index_addresses_on_customer_id', ['customerId'], {})
 @ObjectType()
-@Entity('addresses', { database: 'app_development', schema: 'app_development' })
+@Entity('addresses', {
+  database: process.env.MYSQLDB,
+  schema: process.env.MYSQLDB,
+})
 export class Addresses extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })

@@ -9,7 +9,7 @@ import {
 
 @Index('fact_elevators_pkey', ['id'], { unique: true })
 @ObjectType()
-@Entity('fact_elevators', { database: 'dwh_development', schema: 'public' })
+@Entity('fact_elevators', { database: process.env.PGDB, schema: 'public' })
 export class FactElevators extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })

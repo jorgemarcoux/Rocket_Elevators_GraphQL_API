@@ -17,7 +17,7 @@ import { Columns } from './Columns';
 @Index('index_batteries_on_building_id', ['buildingId'], {})
 @Index('index_batteries_on_employee_id', ['employeeId'], {})
 @ObjectType()
-@Entity('batteries', { schema: 'app_development' })
+@Entity('batteries', { schema: process.env.MYSQLDB })
 export class Batteries extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })

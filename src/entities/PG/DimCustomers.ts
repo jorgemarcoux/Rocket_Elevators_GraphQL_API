@@ -9,7 +9,7 @@ import {
 
 @Index('dim_customers_pkey', ['id'], { unique: true })
 @ObjectType()
-@Entity('dim_customers', { database: 'dwh_development', schema: 'public' })
+@Entity('dim_customers', { database: process.env.PGDB, schema: 'public' })
 export class DimCustomers extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })

@@ -15,7 +15,7 @@ import { Users } from './Users';
 @Index('index_customers_on_address_id', ['addressId'], {})
 @Index('index_customers_on_user_id', ['userId'], {})
 @ObjectType()
-@Entity('customers', { schema: 'app_development' })
+@Entity('customers', { schema: process.env.MYSQLDB })
 export class Customers {
   @Field(() => ID)
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
