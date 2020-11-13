@@ -3,9 +3,9 @@ import { FindOperator, getRepository, In } from 'typeorm';
 import { FactInterventions } from '../entities/PG/FactInterventions';
 import { Buildings } from '../entities/MySQL/Buildings';
 import { Employees } from '../entities/MySQL/Employees';
-import { Elevators } from '../entities/MySQL/Elevators';
-import { Columns } from '../entities/MySQL/Columns';
-import { Batteries } from '../entities/MySQL/Batteries';
+// import { Elevators } from '../entities/MySQL/Elevators';
+// import { Columns } from '../entities/MySQL/Columns';
+// import { Batteries } from '../entities/MySQL/Batteries';
 
 @Resolver()
 export class InterventionResolvers {
@@ -110,13 +110,6 @@ export class InterventionResolvers {
 
     facts.forEach(async f => {
       f.building = buildings.find(async b => b.id === f.buildingId);
-      f.elevator = await Elevators.findOne({ where: { id: f.elevatorId } });
-      f.column = await Columns.findOne({
-        where: { id: f.columnId },
-      });
-      f.battery = await Batteries.findOne({
-        where: { id: f.batteryId },
-      });
     });
 
     employee.interventions = facts;

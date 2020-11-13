@@ -106,6 +106,9 @@ query{
       id
       interventionStartDateTime
       interventionEndDateTime
+      report
+      result
+      status
       building{
         address{
           fullAddress
@@ -119,5 +122,49 @@ query{
     }
   }
 }
+
+```
+
+# Get all interventions for a specific employee along with all batteries, columns & elevators for each building
+
+```javascript
+query {
+  byEmployeeId(id: 1) {
+    function
+    employeeName
+    employeeContactInfo
+    interventions {
+      id
+      interventionStartDateTime
+      interventionEndDateTime
+      report
+      result
+      status
+      building {
+        id
+        address {
+          fullAddress
+        }
+        buildingDetails {
+          informationKey
+          value
+        }
+        batteries {
+          id
+          batteryStatus
+          columns {
+            columnStatus
+            id
+            elevators {
+              elevatorStatus
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 
 ```
